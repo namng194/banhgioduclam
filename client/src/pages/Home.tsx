@@ -172,7 +172,7 @@ export default function Home() {
       {/* Contact Section */}
       {/* Note: Section này đã có overflow-hidden nên an toàn với skew */}
       <section id="contact" className="py-24 relative overflow-hidden z-10 scroll-mt-32">
-        <div className="absolute inset-0 bg-primary text-primary-foreground skew-y-3 transform origin-bottom-left -z-10"></div>
+        {/* <div className="absolute inset-0 bg-primary text-primary-foreground skew-y-3 transform origin-bottom-left -z-20"></div> */}
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
