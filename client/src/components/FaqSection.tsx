@@ -22,9 +22,9 @@ export function FaqSection() {
     );
   }
 
-  // Only render if we have FAQs
+  // Always render FAQs section (fallback data is provided by hook)
   if (!faqs || faqs.length === 0) {
-    return null; 
+    return null; // This should rarely happen now that we have fallback
   }
 
   return (
@@ -42,14 +42,14 @@ export function FaqSection() {
         <div className="space-y-4">
           {faqs.map((faq, index) => {
             const isOpen = openId === faq.id;
-            
+
             return (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                key={faq.id} 
+                key={faq.id}
                 className={`bg-white rounded-2xl border transition-all duration-300 ${
                   isOpen ? "border-primary/30 shadow-md" : "border-border/50 shadow-sm hover:border-border hover:shadow-md"
                 }`}
@@ -70,13 +70,13 @@ export function FaqSection() {
                       {faq.question}
                     </span>
                   </div>
-                  <ChevronDown 
+                  <ChevronDown
                     className={`w-5 h-5 text-muted-foreground transition-transform duration-300 ${
                       isOpen ? "rotate-180 text-primary" : ""
-                    }`} 
+                    }`}
                   />
                 </button>
-                
+
                 <AnimatePresence>
                   {isOpen && (
                     <motion.div

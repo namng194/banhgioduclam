@@ -9,14 +9,14 @@ export function useChat() {
     mutationFn: async (data: ChatInput) => {
       // Validate input before sending
       const validated = api.chat.send.input.parse(data);
-      
+
       const res = await fetch(api.chat.send.path, {
         method: api.chat.send.method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(validated),
         credentials: "include",
       });
-      
+
       if (!res.ok) {
         if (res.status === 400) {
           const error = await res.json();
@@ -24,7 +24,7 @@ export function useChat() {
         }
         throw new Error("Failed to send message");
       }
-      
+
       const responseData = await res.json();
       // Validate response against schema
       return api.chat.send.responses[200].parse(responseData);

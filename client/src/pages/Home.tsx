@@ -1,238 +1,224 @@
-import { motion } from "framer-motion";
-import { MapPin, Phone, Facebook, CheckCircle2, Star, Clock, ChefHat } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { MapPin, Phone, Facebook, CheckCircle2, Star, Clock, Menu, X } from "lucide-react";
 import { ChatWidget } from "@/components/ChatWidget";
 import { FaqSection } from "@/components/FaqSection";
 
 export default function Home() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
-    // FIX 1: Bỏ 'overflow-x-hidden' ở div gốc. Chỉ giữ lại flex và layout cơ bản.
-    <div className="min-h-screen bg-background flex flex-col relative">
+    <div className="min-h-screen bg-background flex flex-col">
 
-      {/* FIX 2: Tạo một thẻ bao riêng cho Background Blobs với 'overflow-hidden'.
-          Thẻ này sẽ dính chặt vào khung nền (absolute inset-0) và cắt bỏ phần thừa của blobs. */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-secondary/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
-      </div>
-
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-[100] py-6 px-4 sm:px-6 lg:px-8 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto flex justify-between items-center glass-panel rounded-2xl px-6 py-3">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center text-white font-display font-bold shadow-lg shadow-primary/30">
+      {/* ===== HEADER ===== */}
+      <header className="fixed top-0 left-0 right-0 z-[100] px-3 sm:px-6 lg:px-8 pt-3">
+        <div className="max-w-7xl mx-auto flex justify-between items-center bg-white/85 backdrop-blur-lg rounded-2xl px-4 sm:px-6 py-2.5 shadow-lg shadow-black/[0.04] border border-white/60">
+          <a href="#" className="flex items-center gap-2.5">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 bg-primary rounded-lg flex items-center justify-center text-primary-foreground font-display font-bold text-xs sm:text-sm shadow-sm">
               ĐL
             </div>
-            <h1 className="text-xl md:text-2xl font-display font-bold text-foreground tracking-tight">
-              Bánh Giò <span className="text-primary">Đức Lâm</span>
-            </h1>
+            <span className="text-base sm:text-lg font-display font-bold text-foreground tracking-tight">
+              Đức Lâm
+            </span>
+          </a>
+
+          <nav className="hidden md:flex items-center gap-1">
+            <a href="#about" className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg hover:bg-black/[0.03] transition-all">Giới Thiệu</a>
+            <a href="#faq" className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg hover:bg-black/[0.03] transition-all">Hỏi Đáp</a>
+            <a href="#contact" className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg hover:bg-black/[0.03] transition-all">Liên Hệ</a>
+            <a href="tel:0984989795" className="ml-2 bg-primary text-primary-foreground px-5 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity flex items-center gap-2">
+              <Phone className="w-3.5 h-3.5" />
+              Gọi Ngay
+            </a>
+          </nav>
+
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 text-foreground"
+            aria-label="Menu"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
+
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.15 }}
+              className="md:hidden mt-2 bg-white rounded-2xl px-5 py-4 max-w-7xl mx-auto shadow-xl border border-border/50"
+            >
+              <nav className="flex flex-col text-sm font-medium">
+                <a href="#about" onClick={() => setMobileMenuOpen(false)} className="py-3 text-foreground border-b border-border/30">Giới Thiệu</a>
+                <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="py-3 text-foreground border-b border-border/30">Hỏi Đáp</a>
+                <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="py-3 text-foreground border-b border-border/30">Liên Hệ</a>
+                <a href="tel:0984989795" className="mt-3 bg-primary text-primary-foreground py-3 rounded-xl font-semibold text-center flex items-center justify-center gap-2">
+                  <Phone className="w-4 h-4" />
+                  0984 989 795
+                </a>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+
+      {/* ===== HERO ===== */}
+      <section className="pt-14 sm:pt-16">
+        <div className="relative h-full w-full aspect-[5/3]">
+          <img
+            src="/hero-cover.jpg"
+            alt="Bánh Giò Đức Lâm"
+            className="absolute inset-0 w-full h-full object-cover"
+            // className="absolute inset-0 w-full h-full object-contain bg-black"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/5" />
+
+          {/* Text in flow for sticky to work */}
+          <div className="relative z-10 flex flex-col h-full">
+            <div className="flex-1" />
+            <div className="sticky bottom-0 p-5 sm:p-8 md:p-12 lg:p-16 xl:p-20">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7 }}
+                className="max-w-3xl space-y-3 sm:space-y-5"
+              >
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur-sm text-white/90 text-xs sm:text-sm font-medium border border-white/20">
+                  <Star className="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="currentColor" />
+                  <span>2,1K+ người tin dùng</span>
+                </div>
+
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white leading-[1.1]">
+                  Thưởng thức Bánh Giò
+                  <br />
+                  Chuẩn vị truyền thống
+                </h2>
+
+                <p className="text-white/75 text-sm sm:text-base md:text-lg max-w-lg leading-relaxed hidden sm:block">
+                  Cao cấp, thượng hạng. Nói không với bánh rẻ tiền, hàng kém chất lượng.
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-3 pt-1 sm:pt-2">
+                  <a
+                    href="#contact"
+                    className="px-5 sm:px-7 py-3 sm:py-3.5 rounded-xl font-semibold bg-white text-foreground hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base"
+                  >
+                    <MapPin className="w-4 h-4" />
+                    Đến Quán Ngay
+                  </a>
+                  <a
+                    href="tel:0984989795"
+                    className="px-5 sm:px-7 py-3 sm:py-3.5 rounded-xl font-semibold bg-white/15 backdrop-blur-sm text-white border border-white/25 hover:bg-white/25 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base"
+                  >
+                    <Phone className="w-4 h-4" />
+                    0984 989 795
+                  </a>
+                </div>
+              </motion.div>
+            </div>
           </div>
-          <div className="hidden md:flex items-center gap-6 text-sm font-semibold text-muted-foreground">
-            <a href="#about" className="hover:text-primary transition-colors">Về Chúng Tôi</a>
-            <a href="#contact" className="hover:text-primary transition-colors">Liên Hệ</a>
+        </div>
+      </section>
+
+      {/* ===== FEATURES ===== */}
+      <section id="about" className="py-16 sm:py-24 scroll-mt-20">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10 sm:mb-14">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold mb-3">
+              Vì Sao Chọn <span className="text-primary">Đức Lâm</span>?
+            </h2>
+            <p className="text-muted-foreground text-sm sm:text-base max-w-md mx-auto">
+              Hương vị truyền thống, chất lượng thượng hạng
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+            <motion.div whileHover={{ y: -4 }} className="bg-white rounded-2xl p-6 sm:p-8 border border-border/50 text-center hover:shadow-lg transition-shadow">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4 sm:mb-5">
+                <CheckCircle2 className="w-6 h-6 sm:w-7 sm:h-7" />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold mb-2">Chuẩn Vị Truyền Thống</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">Công thức độc quyền lưu giữ hương vị tinh túy ngàn xưa.</p>
+            </motion.div>
+
+            <motion.div whileHover={{ y: -4 }} className="bg-white rounded-2xl p-6 sm:p-8 border border-border/50 text-center hover:shadow-lg transition-shadow">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center mx-auto mb-4 sm:mb-5">
+                <Star className="w-6 h-6 sm:w-7 sm:h-7" fill="currentColor" />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold mb-2">Cao Cấp, Thượng Hạng</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">Chỉ sử dụng nguyên liệu tươi ngon nhất, chọn lọc kỹ càng.</p>
+            </motion.div>
+
+            <motion.div whileHover={{ y: -4 }} className="bg-white rounded-2xl p-6 sm:p-8 border border-border/50 text-center hover:shadow-lg transition-shadow">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-accent/10 text-accent flex items-center justify-center mx-auto mb-4 sm:mb-5">
+                <Clock className="w-6 h-6 sm:w-7 sm:h-7" />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold mb-2">Nói Không Hàng Kém</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">Cam kết tuyệt đối không dùng bánh rẻ tiền, luôn đảm bảo chất lượng.</p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== FAQ ===== */}
+      <div id="faq" className="scroll-mt-20">
+        <FaqSection />
+      </div>
+
+      {/* ===== CONTACT ===== */}
+      <section id="contact" className="py-16 sm:py-24 scroll-mt-20">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10 sm:mb-14">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold mb-3">
+              Ghé Thăm Quán
+            </h2>
+            <p className="text-muted-foreground text-sm sm:text-base max-w-md mx-auto">
+              Đến tận nơi trải nghiệm hương vị bánh giò thượng hạng
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-10">
+            <a
+              href="https://maps.google.com/?q=459+B%E1%BA%A1ch+Mai,+Hai+B%C3%A0+Tr%C6%B0ng,+H%C3%A0+N%E1%BB%99i"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white p-6 sm:p-8 rounded-2xl border border-border/50 flex flex-col items-center text-center gap-3 group hover:shadow-lg hover:border-primary/20 transition-all"
+            >
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors">
+                <MapPin className="w-6 h-6 sm:w-7 sm:h-7 text-primary group-hover:text-white transition-colors" />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold">Địa Chỉ</h3>
+              <p className="text-muted-foreground text-sm">459 Bạch Mai,<br />Hai Bà Trưng, Hà Nội</p>
+            </a>
+
+            <a
+              href="tel:0984989795"
+              className="bg-white p-6 sm:p-8 rounded-2xl border border-border/50 flex flex-col items-center text-center gap-3 group hover:shadow-lg hover:border-primary/20 transition-all"
+            >
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors">
+                <Phone className="w-6 h-6 sm:w-7 sm:h-7 text-primary group-hover:text-white transition-colors" />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold">Hotline</h3>
+              <p className="text-primary text-xl sm:text-2xl font-bold mt-1">0984 989 795</p>
+            </a>
+
             <a
               href="https://www.facebook.com/banhgioduclam"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-accent/10 text-accent px-4 py-2 rounded-full hover:bg-accent hover:text-white transition-all duration-300 flex items-center gap-2"
+              className="bg-white p-6 sm:p-8 rounded-2xl border border-border/50 flex flex-col items-center text-center gap-3 group hover:shadow-lg hover:border-[#1877F2]/20 transition-all"
             >
-              <Facebook className="w-4 h-4" />
-              <span>Facebook</span>
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#1877F2]/10 flex items-center justify-center group-hover:bg-[#1877F2] transition-colors">
+                <Facebook className="w-6 h-6 sm:w-7 sm:h-7 text-[#1877F2] group-hover:text-white transition-colors" />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold">Facebook</h3>
+              <p className="text-muted-foreground text-sm">2,1K+ người theo dõi</p>
             </a>
           </div>
-        </div>
-      </header>
 
-      {/* Hero Section */}
-      {/* FIX 3: Thêm 'overflow-x-clip' (hoặc overflow-hidden) vào section này để tránh thanh cuộn ngang
-          khi animation từ trái (-x) bay vào */}
-      <section className="pt-32 pb-16 md:pt-48 md:pb-32 px-4 sm:px-6 lg:px-8 relative overflow-x-clip">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="flex flex-col space-y-8"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/20 text-secondary-foreground font-semibold text-sm w-fit border border-secondary/30">
-              <Star className="w-4 h-4 text-secondary" fill="currentColor" />
-              <span>Thương hiệu 2,1K+ người bạn tin dùng</span>
-            </div>
-
-            <h2 className="text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.1] text-balance">
-              Thưởng thức <br/>
-              <span className="text-primary relative inline-block">
-                Bánh Giò
-                <svg className="absolute -bottom-2 left-0 w-full h-3 text-secondary/40" viewBox="0 0 100 20" preserveAspectRatio="none">
-                  <path d="M0,10 Q50,20 100,10" fill="none" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
-                </svg>
-              </span><br/>
-              Chuẩn vị truyền thống
-            </h2>
-
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-lg">
-              Ở đây có bánh giò chuẩn vị, cao cấp, thượng hạng. Nói không với bánh rẻ tiền, hàng kém chất lượng.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <a
-                href="#contact"
-                className="px-8 py-4 rounded-xl font-semibold bg-primary text-primary-foreground shadow-lg shadow-primary/25 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2"
-              >
-                <MapPin className="w-5 h-5" />
-                Đến Quán Ngay
-              </a>
-              <a
-                href="tel:0984989795"
-                className="px-8 py-4 rounded-xl font-semibold bg-white text-foreground border-2 border-border shadow-sm hover:border-primary hover:text-primary transition-all duration-300 flex items-center justify-center gap-2 group"
-              >
-                <Phone className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                Gọi Đặt Bánh
-              </a>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative"
-          >
-            <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl shadow-primary/10 border-8 border-white bg-white flex items-center justify-center min-h-[360px]">
-              <img
-                src="https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/616838197_122278854656190415_5330095285622941852_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=7b2446&_nc_ohc=ff9LLY7OJ6sQ7kNvwGLD1SC&_nc_oc=AdnIA3qjwDhTTGjpiJx9OwKzhxkdXLpbUjEmbuEnwOUnjSMG4XnrtZkpebmn9O9f3JrkLT-ub0gkPS_N44w34Q-y&_nc_zt=23&_nc_ht=scontent.fhan2-4.fna&_nc_gid=ZKhP-og8awKsX5c4HAnXNQ&_nc_ss=8&oh=00_AfvYzac1xI0O79z27z2OrluEv4laF1-UGSSoNovkBHZWjA&oe=69A9EC7E"
-                alt="Bánh Giò Đức Lâm"
-                // className="block w-full h-auto max-h-[640px] object-contain"
-                className="block w-full h-[400px] object-cover"
-              />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
-
-              {/* Floating badge */}
-              <div className="absolute bottom-6 left-6 right-6 glass-panel rounded-xl p-4 flex items-center gap-4 text-white">
-                <div className="bg-primary p-3 rounded-full">
-                  <ChefHat className="w-6 h-6" />
-                </div>
-                <div>
-                  <p className="font-bold text-lg font-display">Cao Cấp & Thượng Hạng</p>
-                  <p className="text-sm opacity-90">Hương vị khó quên</p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section id="about" className="py-20 bg-white scroll-mt-32 relative">
-        <span id="aboutus" className="absolute -top-32" aria-hidden="true"></span>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid sm:grid-cols-3 gap-8 text-center divide-y sm:divide-y-0 sm:divide-x divide-border">
-
-            <motion.div
-              whileHover={{ y: -5 }}
-              className="px-6 py-4 flex flex-col items-center gap-4"
-            >
-              <div className="w-16 h-16 bg-primary/10 text-primary rounded-2xl flex items-center justify-center rotate-3 transition-transform hover:rotate-6">
-                <CheckCircle2 className="w-8 h-8" />
-              </div>
-              <h3 className="text-xl font-bold">Chuẩn Vị Truyền Thống</h3>
-              <p className="text-muted-foreground text-sm">Công thức độc quyền lưu giữ hương vị tinh túy ngàn xưa.</p>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ y: -5 }}
-              className="px-6 py-4 flex flex-col items-center gap-4"
-            >
-              <div className="w-16 h-16 bg-secondary/10 text-secondary-foreground rounded-2xl flex items-center justify-center -rotate-3 transition-transform hover:-rotate-6">
-                <Star className="w-8 h-8 text-secondary" fill="currentColor" />
-              </div>
-              <h3 className="text-xl font-bold">Cao Cấp, Thượng Hạng</h3>
-              <p className="text-muted-foreground text-sm">Chỉ sử dụng nguyên liệu tươi ngon nhất, chọn lọc kỹ càng.</p>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ y: -5 }}
-              className="px-6 py-4 flex flex-col items-center gap-4"
-            >
-              <div className="w-16 h-16 bg-accent/10 text-accent rounded-2xl flex items-center justify-center rotate-3 transition-transform hover:rotate-6">
-                <Clock className="w-8 h-8" />
-              </div>
-              <h3 className="text-xl font-bold">Nói Không Hàng Kém</h3>
-              <p className="text-muted-foreground text-sm">Cam kết tuyệt đối không dùng bánh rẻ tiền, luôn đảm bảo chất lượng.</p>
-            </motion.div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <FaqSection />
-
-      {/* Contact Section */}
-      {/* Note: Section này đã có overflow-hidden nên an toàn với skew */}
-      <section id="contact" className="py-24 relative overflow-hidden z-10 scroll-mt-32">
-        {/* <div className="absolute inset-0 bg-primary text-primary-foreground skew-y-3 transform origin-bottom-left -z-20"></div> */}
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-display font-bold mb-4">Ghé Thăm Quán Ngay</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Hãy đến và tự mình trải nghiệm hương vị bánh giò thượng hạng làm nức lòng thực khách Hà Thành.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-
-            <motion.a
-              href="https://maps.google.com/?q=459+Bạch+Mai,+Hai+Bà+Trưng,+Hà+Nội"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.03 }}
-              className="bg-card p-8 rounded-3xl shadow-xl shadow-black/5 flex flex-col items-center text-center gap-4 border border-border group"
-            >
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
-                <MapPin className="w-8 h-8 text-primary group-hover:text-white transition-colors duration-300" />
-              </div>
-              <h3 className="text-xl font-bold text-foreground">Địa Chỉ</h3>
-              <p className="text-muted-foreground">459 Bạch Mai, <br/>Hai Bà Trưng, Hà Nội</p>
-            </motion.a>
-
-            <motion.a
-              href="tel:0984989795"
-              whileHover={{ scale: 1.03 }}
-              className="bg-card p-8 rounded-3xl shadow-xl shadow-black/5 flex flex-col items-center text-center gap-4 border border-border group"
-            >
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
-                <Phone className="w-8 h-8 text-primary group-hover:text-white transition-colors duration-300" />
-              </div>
-              <h3 className="text-xl font-bold text-foreground">Điện Thoại</h3>
-              <p className="text-muted-foreground text-2xl font-bold text-primary mt-2">0984 989 795</p>
-            </motion.a>
-
-            <motion.a
-              href="https://www.facebook.com/banhgioduclam"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.03 }}
-              className="bg-card p-8 rounded-3xl shadow-xl shadow-black/5 flex flex-col items-center text-center gap-4 border border-border group"
-            >
-              <div className="w-16 h-16 rounded-full bg-[#1877F2]/10 flex items-center justify-center group-hover:bg-[#1877F2] transition-colors duration-300">
-                <Facebook className="w-8 h-8 text-[#1877F2] group-hover:text-white transition-colors duration-300" />
-              </div>
-              <h3 className="text-xl font-bold text-foreground">Facebook</h3>
-              <p className="text-muted-foreground">Theo dõi và <br/>kết nối với 2,1K+ người bạn</p>
-            </motion.a>
-
-          </div>
-
-          {/* Google Maps Integration */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-12 rounded-3xl overflow-hidden shadow-2xl border-4 border-white h-[400px] relative"
-          >
+          <div className="rounded-2xl overflow-hidden shadow-lg border border-border/50 h-[260px] sm:h-[320px] md:h-[380px]">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.7335661245!2d105.84752627596851!3d21.003314488651846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac73f3099993%3A0x609565f375f0a203!2zNDU5IELhuqFjaCBNYWksIFRHLiBC4buZLCBIYWkgQsOgIFRyxrBuZywgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1715678901234!5m2!1svi!2s"
               width="100%"
@@ -241,29 +227,38 @@ export default function Home() {
               allowFullScreen={true}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Địa chỉ Bánh Giò Đức Lâm"
+              title="Bánh Giò Đức Lâm - 459 Bạch Mai, Hà Nội"
             ></iframe>
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-foreground text-muted py-12 px-4 text-center border-t-4 border-primary">
-        <div className="max-w-4xl mx-auto flex flex-col items-center gap-6">
-          <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center text-primary font-display font-bold text-xl mb-2">
-            ĐL
+      {/* ===== FOOTER ===== */}
+      <footer className="bg-foreground py-10 sm:py-12 px-4 mt-auto">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start sm:justify-between gap-6 text-center sm:text-left">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-primary font-display font-bold text-sm">
+                ĐL
+              </div>
+              <div>
+                <p className="font-display font-bold text-white text-lg">Bánh Giò Đức Lâm</p>
+                <p className="text-white/50 text-xs">Chuẩn vị, cao cấp, thượng hạng</p>
+              </div>
+            </div>
+            <div className="text-white/50 text-sm space-y-1">
+              <p>459 Bạch Mai, Hai Bà Trưng, Hà Nội</p>
+              <p>Hotline: <a href="tel:0984989795" className="text-white/70 hover:text-white transition-colors">0984 989 795</a></p>
+            </div>
           </div>
-          <div>
-            <h3 className="text-2xl font-display font-bold text-white mb-2">BÁNH GIÒ ĐỨC LÂM</h3>
-            <p className="opacity-70 max-w-md mx-auto">Ở đây có bánh giò chuẩn vị, cao cấp, thượng hạng. Nói không với bánh rẻ tiền, hàng kém chất lượng.</p>
+          <div className="mt-8 pt-6 border-t border-white/10 text-center">
+            <p className="text-white/30 text-xs">
+              © {new Date().getFullYear()} Bánh Giò Đức Lâm. All rights reserved.
+            </p>
           </div>
-          <p className="text-sm opacity-50 mt-8 pt-8 border-t border-white/10 w-full">
-            © {new Date().getFullYear()} Bánh Giò Đức Lâm. All rights reserved.
-          </p>
         </div>
       </footer>
 
-      {/* Floating Chatbot Widget */}
       <ChatWidget />
     </div>
   );

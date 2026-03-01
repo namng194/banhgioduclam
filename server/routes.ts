@@ -79,14 +79,21 @@ export async function registerRoutes(
     try {
       const input = api.chat.send.input.parse(req.body);
 
-      // Try to get answer from storage (which has database fallback built-in)
+      // Get answer with full error protection
+      // Chatbot ALWAYS works - no database dependency
       let answer: string;
       try {
         answer = await storage.getAnswerForQuestion(input.message);
       } catch (storageErr) {
-        // If storage completely fails, use direct fallback
-        console.warn('⚠️  Storage layer failed, using direct chatbot fallback');
-        answer = getChatbotAnswer(input.message);
+        // If storage layer fails (should never happen), use direct fallback
+        console.error('⚠️  Storage layer failed, using direct chatbot fallback:', storageErr);
+        try {
+          answer = getChatbotAnswer(input.message);
+        } catch (fallbackErr) {
+          // Ultimate fallback if everything fails
+          console.error('❌ Even fallback failed (critical):', fallbackErr);
+          answer = "Dạ em xin lỗi! Vui lòng gọi trực tiếp: 0984 989 795 để được hỗ trợ ngay ạ!";
+        }
       }
 
       res.json({ answer });
@@ -98,12 +105,11 @@ export async function registerRoutes(
         });
       }
 
-      console.error('❌ Error in chat endpoint:', err);
+      console.error('❌ Unexpected error in chat endpoint:', err);
 
-      // Even if there's an unexpected error, try to provide a fallback response
-      // This ensures the chatbot always works
+      // Ultimate fallback: always provide a helpful response
       return res.status(200).json({
-        answer: "Dạ em xin lỗi, hệ thống đang gặp một chút trục trặc. Nhưng em vẫn có thể giúp anh/chị! Vui lòng hỏi lại hoặc gọi trực tiếp: 0984 989 795 để được hỗ trợ ngay ạ!"
+        answer: "Dạ em xin lỗi, hệ thống đang gặp một chút trục trặc. Vui lòng gọi trực tiếp: 0984 989 795 để được hỗ trợ ngay ạ!"
       });
     }
   });
