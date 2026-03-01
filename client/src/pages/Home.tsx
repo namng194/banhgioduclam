@@ -7,8 +7,9 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background flex flex-col relative overflow-hidden">
       {/* Decorative background blobs */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-secondary/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 pointer-events-none" />
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none animate-pulse" />
+      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-accent/15 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-secondary/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
       {/* Header */}
       <header className="absolute top-0 left-0 right-0 z-10 py-6 px-4 sm:px-6 lg:px-8">
@@ -56,7 +57,7 @@ export default function Home() {
               Thưởng thức <br/>
               <span className="text-primary relative inline-block">
                 Bánh Giò
-                <svg className="absolute -bottom-2 left-0 w-full h-3 text-secondary/40" viewBox="0 0 100 20" preserveAspectRatio="none">
+                <svg className="absolute -bottom-2 left-0 w-full h-3 text-accent/60" viewBox="0 0 100 20" preserveAspectRatio="none">
                   <path d="M0,10 Q50,20 100,10" fill="none" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
                 </svg>
               </span><br/>
@@ -91,12 +92,12 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative"
           >
-            <div className="relative aspect-square md:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl shadow-primary/10 border-8 border-white">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-primary/10 border-8 border-white bg-white">
               {/* landing page hero delicious steamed vietnamese food in banana leaves */}
               <img
                 src="https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/616838197_122278854656190415_5330095285622941852_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=7b2446&_nc_ohc=ff9LLY7OJ6sQ7kNvwGLD1SC&_nc_oc=AdnIA3qjwDhTTGjpiJx9OwKzhxkdXLpbUjEmbuEnwOUnjSMG4XnrtZkpebmn9O9f3JrkLT-ub0gkPS_N44w34Q-y&_nc_zt=23&_nc_ht=scontent.fhan2-4.fna&_nc_gid=ZKhP-og8awKsX5c4HAnXNQ&_nc_ss=8&oh=00_AfvYzac1xI0O79z27z2OrluEv4laF1-UGSSoNovkBHZWjA&oe=69A9EC7E"
                 alt="Bánh Giò Đức Lâm"
-                className="object-cover w-full h-full transform hover:scale-105 transition-transform duration-700"
+                className="object-contain w-full h-auto max-h-[600px] transform hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
 
@@ -117,15 +118,19 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section id="about" className="py-20 bg-white">
+      <section id="about" className="py-20 bg-card transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid sm:grid-cols-3 gap-8 text-center divide-y sm:divide-y-0 sm:divide-x divide-border">
 
             <motion.div
-              whileHover={{ y: -5 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              whileHover={{ y: -5, scale: 1.02 }}
               className="px-6 py-4 flex flex-col items-center gap-4"
             >
-              <div className="w-16 h-16 bg-primary/10 text-primary rounded-2xl flex items-center justify-center rotate-3 transition-transform hover:rotate-6">
+              <div className="w-16 h-16 bg-primary/10 text-primary rounded-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-primary/20 hover:shadow-lg">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
               <h3 className="text-xl font-bold">Chuẩn Vị Truyền Thống</h3>
@@ -133,10 +138,14 @@ export default function Home() {
             </motion.div>
 
             <motion.div
-              whileHover={{ y: -5 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              whileHover={{ y: -5, scale: 1.02 }}
               className="px-6 py-4 flex flex-col items-center gap-4"
             >
-              <div className="w-16 h-16 bg-secondary/10 text-secondary-foreground rounded-2xl flex items-center justify-center -rotate-3 transition-transform hover:-rotate-6">
+              <div className="w-16 h-16 bg-secondary/10 text-secondary-foreground rounded-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-secondary/20 hover:shadow-lg">
                 <Star className="w-8 h-8 text-secondary" fill="currentColor" />
               </div>
               <h3 className="text-xl font-bold">Cao Cấp, Thượng Hạng</h3>
@@ -144,10 +153,14 @@ export default function Home() {
             </motion.div>
 
             <motion.div
-              whileHover={{ y: -5 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              whileHover={{ y: -5, scale: 1.02 }}
               className="px-6 py-4 flex flex-col items-center gap-4"
             >
-              <div className="w-16 h-16 bg-accent/10 text-accent rounded-2xl flex items-center justify-center rotate-3 transition-transform hover:rotate-6">
+              <div className="w-16 h-16 bg-accent/10 text-accent rounded-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-accent/20 hover:shadow-lg">
                 <Clock className="w-8 h-8" />
               </div>
               <h3 className="text-xl font-bold">Nói Không Hàng Kém</h3>
@@ -163,15 +176,21 @@ export default function Home() {
 
       {/* Contact Section */}
       <section id="contact" className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-primary text-primary-foreground skew-y-3 transform origin-bottom-left -z-10 mt-20"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-emerald-600 skew-y-3 transform origin-bottom-left -z-10 mt-20"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-0">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-display font-bold mb-4">Ghé Thăm Quán Ngay</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-5xl font-display font-bold mb-4 text-white">Ghé Thăm Quán Ngay</h2>
+            <p className="text-lg text-white/90 max-w-2xl mx-auto">
               Hãy đến và tự mình trải nghiệm hương vị bánh giò thượng hạng làm nức lòng thực khách Hà Thành.
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid md:grid-cols-3 gap-6">
 
@@ -179,10 +198,14 @@ export default function Home() {
               href="https://maps.google.com/?q=459+Bạch+Mai,+Hai+Bà+Trưng,+Hà+Nội"
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.03 }}
-              className="bg-card p-8 rounded-3xl shadow-xl shadow-black/5 flex flex-col items-center text-center gap-4 border border-border group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              whileHover={{ scale: 1.05, y: -5 }}
+              className="bg-card p-8 rounded-3xl shadow-xl shadow-black/10 flex flex-col items-center text-center gap-4 border border-border group cursor-pointer"
             >
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-all duration-300 group-hover:scale-110">
                 <MapPin className="w-8 h-8 text-primary group-hover:text-white transition-colors duration-300" />
               </div>
               <h3 className="text-xl font-bold text-foreground">Địa Chỉ</h3>
@@ -191,10 +214,14 @@ export default function Home() {
 
             <motion.a
               href="tel:0984989795"
-              whileHover={{ scale: 1.03 }}
-              className="bg-card p-8 rounded-3xl shadow-xl shadow-black/5 flex flex-col items-center text-center gap-4 border border-border group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              whileHover={{ scale: 1.05, y: -5 }}
+              className="bg-card p-8 rounded-3xl shadow-xl shadow-black/10 flex flex-col items-center text-center gap-4 border border-border group cursor-pointer"
             >
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-all duration-300 group-hover:scale-110">
                 <Phone className="w-8 h-8 text-primary group-hover:text-white transition-colors duration-300" />
               </div>
               <h3 className="text-xl font-bold text-foreground">Điện Thoại</h3>
@@ -205,10 +232,14 @@ export default function Home() {
               href="https://www.facebook.com/banhgioduclam"
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.03 }}
-              className="bg-card p-8 rounded-3xl shadow-xl shadow-black/5 flex flex-col items-center text-center gap-4 border border-border group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              whileHover={{ scale: 1.05, y: -5 }}
+              className="bg-card p-8 rounded-3xl shadow-xl shadow-black/10 flex flex-col items-center text-center gap-4 border border-border group cursor-pointer"
             >
-              <div className="w-16 h-16 rounded-full bg-[#1877F2]/10 flex items-center justify-center group-hover:bg-[#1877F2] transition-colors duration-300">
+              <div className="w-16 h-16 rounded-full bg-[#1877F2]/10 flex items-center justify-center group-hover:bg-[#1877F2] transition-all duration-300 group-hover:scale-110">
                 <Facebook className="w-8 h-8 text-[#1877F2] group-hover:text-white transition-colors duration-300" />
               </div>
               <h3 className="text-xl font-bold text-foreground">Facebook</h3>

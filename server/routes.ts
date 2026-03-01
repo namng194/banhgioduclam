@@ -29,10 +29,29 @@ export async function registerRoutes(
     }
   });
 
-  // Seed DB with some FAQs
-  seedDatabase().catch(console.error);
+  // Seed DB with some FAQs (with retry logic)
+  seedDatabaseWithRetry();
 
   return httpServer;
+}
+
+async function seedDatabaseWithRetry(retries = 3) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      await seedDatabase();
+      console.log('✅ Database seeded successfully');
+      return;
+    } catch (error) {
+      console.log(`⚠️  Database connection attempt ${i + 1}/${retries} failed:`, error instanceof Error ? error.message : error);
+      if (i < retries - 1) {
+        const delay = Math.min(1000 * Math.pow(2, i), 5000);
+        console.log(`   Retrying in ${delay}ms...`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+      } else {
+        console.error('❌ Database seed failed after all retries. Server will continue without initial data.');
+      }
+    }
+  }
 }
 
 async function seedDatabase() {
