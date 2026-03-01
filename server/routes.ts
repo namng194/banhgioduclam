@@ -84,7 +84,7 @@ async function seedDatabase() {
     for (const faq of faqsToSeed) {
       await storage.createFaq(faq);
     }
-    
+
     console.log(`✅ Seeded ${faqsToSeed.length} FAQs to database`);
   }
 }

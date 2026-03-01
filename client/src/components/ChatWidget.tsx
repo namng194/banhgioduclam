@@ -28,7 +28,7 @@ export function ChatWidget() {
       content: "Chào bạn, mình có thể giúp gì cho bạn?",
     },
   ]);
-  
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatMutation = useChat();
 
@@ -104,7 +104,7 @@ export function ChatWidget() {
                   <p className="text-primary-foreground/80 text-xs">Luôn sẵn sàng hỗ trợ</p>
                 </div>
               </div>
-              <button 
+              <button
                 onClick={() => setIsOpen(false)}
                 className="text-primary-foreground/80 hover:text-white hover:bg-white/10 p-2 rounded-full transition-colors"
               >
@@ -132,7 +132,7 @@ export function ChatWidget() {
                   </div>
                 </motion.div>
               ))}
-              
+
               {chatMutation.isPending && (
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -149,7 +149,7 @@ export function ChatWidget() {
 
               {/* Suggestions after each message */}
               {!chatMutation.isPending && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   className="flex flex-wrap gap-2 pt-2"
@@ -165,7 +165,7 @@ export function ChatWidget() {
                   ))}
                 </motion.div>
               )}
-              
+
               <div ref={messagesEndRef} />
             </div>
 

@@ -24,9 +24,9 @@ export default function Home() {
           <div className="hidden md:flex items-center gap-6 text-sm font-semibold text-muted-foreground">
             <a href="#about" className="hover:text-primary transition-colors">Về Chúng Tôi</a>
             <a href="#contact" className="hover:text-primary transition-colors">Liên Hệ</a>
-            <a 
-              href="https://www.facebook.com/banhgioduclam" 
-              target="_blank" 
+            <a
+              href="https://www.facebook.com/banhgioduclam"
+              target="_blank"
               rel="noopener noreferrer"
               className="bg-accent/10 text-accent px-4 py-2 rounded-full hover:bg-accent hover:text-white transition-all duration-300 flex items-center gap-2"
             >
@@ -40,8 +40,8 @@ export default function Home() {
       {/* Hero Section */}
       <section className="pt-32 pb-16 md:pt-48 md:pb-32 px-4 sm:px-6 lg:px-8 relative z-0">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
@@ -51,7 +51,7 @@ export default function Home() {
               <Star className="w-4 h-4 text-secondary" fill="currentColor" />
               <span>Thương hiệu 2,1K+ người bạn tin dùng</span>
             </div>
-            
+
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.1] text-balance">
               Thưởng thức <br/>
               <span className="text-primary relative inline-block">
@@ -62,20 +62,20 @@ export default function Home() {
               </span><br/>
               Chuẩn vị truyền thống
             </h2>
-            
+
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-lg">
               Ở đây có bánh giò chuẩn vị, cao cấp, thượng hạng. Nói không với bánh rẻ tiền, hàng kém chất lượng.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <a 
+              <a
                 href="#contact"
                 className="px-8 py-4 rounded-xl font-semibold bg-primary text-primary-foreground shadow-lg shadow-primary/25 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2"
               >
                 <MapPin className="w-5 h-5" />
                 Đến Quán Ngay
               </a>
-              <a 
+              <a
                 href="tel:0984989795"
                 className="px-8 py-4 rounded-xl font-semibold bg-white text-foreground border-2 border-border shadow-sm hover:border-primary hover:text-primary transition-all duration-300 flex items-center justify-center gap-2 group"
               >
@@ -85,7 +85,7 @@ export default function Home() {
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -93,13 +93,13 @@ export default function Home() {
           >
             <div className="relative aspect-square md:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl shadow-primary/10 border-8 border-white">
               {/* landing page hero delicious steamed vietnamese food in banana leaves */}
-              <img 
-                src="https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/616838197_122278854656190415_5330095285622941852_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=7b2446&_nc_ohc=ff9LLY7OJ6sQ7kNvwGLD1SC&_nc_oc=AdnIA3qjwDhTTGjpiJx9OwKzhxkdXLpbUjEmbuEnwOUnjSMG4XnrtZkpebmn9O9f3JrkLT-ub0gkPS_N44w34Q-y&_nc_zt=23&_nc_ht=scontent.fhan2-4.fna&_nc_gid=ZKhP-og8awKsX5c4HAnXNQ&_nc_ss=8&oh=00_AfvYzac1xI0O79z27z2OrluEv4laF1-UGSSoNovkBHZWjA&oe=69A9EC7E" 
-                alt="Bánh Giò Đức Lâm" 
+              <img
+                src="https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/616838197_122278854656190415_5330095285622941852_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=7b2446&_nc_ohc=ff9LLY7OJ6sQ7kNvwGLD1SC&_nc_oc=AdnIA3qjwDhTTGjpiJx9OwKzhxkdXLpbUjEmbuEnwOUnjSMG4XnrtZkpebmn9O9f3JrkLT-ub0gkPS_N44w34Q-y&_nc_zt=23&_nc_ht=scontent.fhan2-4.fna&_nc_gid=ZKhP-og8awKsX5c4HAnXNQ&_nc_ss=8&oh=00_AfvYzac1xI0O79z27z2OrluEv4laF1-UGSSoNovkBHZWjA&oe=69A9EC7E"
+                alt="Bánh Giò Đức Lâm"
                 className="object-cover w-full h-full transform hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-              
+
               {/* Floating badge */}
               <div className="absolute bottom-6 left-6 right-6 glass-panel rounded-xl p-4 flex items-center gap-4 text-white">
                 <div className="bg-primary p-3 rounded-full">
@@ -120,8 +120,8 @@ export default function Home() {
       <section id="about" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid sm:grid-cols-3 gap-8 text-center divide-y sm:divide-y-0 sm:divide-x divide-border">
-            
-            <motion.div 
+
+            <motion.div
               whileHover={{ y: -5 }}
               className="px-6 py-4 flex flex-col items-center gap-4"
             >
@@ -132,7 +132,7 @@ export default function Home() {
               <p className="text-muted-foreground text-sm">Công thức độc quyền lưu giữ hương vị tinh túy ngàn xưa.</p>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               whileHover={{ y: -5 }}
               className="px-6 py-4 flex flex-col items-center gap-4"
             >
@@ -143,7 +143,7 @@ export default function Home() {
               <p className="text-muted-foreground text-sm">Chỉ sử dụng nguyên liệu tươi ngon nhất, chọn lọc kỹ càng.</p>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               whileHover={{ y: -5 }}
               className="px-6 py-4 flex flex-col items-center gap-4"
             >
@@ -164,7 +164,7 @@ export default function Home() {
       {/* Contact Section */}
       <section id="contact" className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-primary text-primary-foreground skew-y-3 transform origin-bottom-left -z-10 mt-20"></div>
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-0">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-display font-bold mb-4">Ghé Thăm Quán Ngay</h2>
@@ -174,8 +174,8 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            
-            <motion.a 
+
+            <motion.a
               href="https://maps.google.com/?q=459+Bạch+Mai,+Hai+Bà+Trưng,+Hà+Nội"
               target="_blank"
               rel="noopener noreferrer"
@@ -189,7 +189,7 @@ export default function Home() {
               <p className="text-muted-foreground">459 Bạch Mai, <br/>Hai Bà Trưng, Hà Nội</p>
             </motion.a>
 
-            <motion.a 
+            <motion.a
               href="tel:0984989795"
               whileHover={{ scale: 1.03 }}
               className="bg-card p-8 rounded-3xl shadow-xl shadow-black/5 flex flex-col items-center text-center gap-4 border border-border group"
@@ -201,7 +201,7 @@ export default function Home() {
               <p className="text-muted-foreground text-2xl font-bold text-primary mt-2">0984 989 795</p>
             </motion.a>
 
-            <motion.a 
+            <motion.a
               href="https://www.facebook.com/banhgioduclam"
               target="_blank"
               rel="noopener noreferrer"
@@ -218,19 +218,19 @@ export default function Home() {
           </div>
 
           {/* Google Maps Integration */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="mt-12 rounded-3xl overflow-hidden shadow-2xl border-4 border-white h-[400px] relative z-0"
           >
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.7335661245!2d105.84752627596851!3d21.003314488651846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac73f3099993%3A0x609565f375f0a203!2zNDU5IELhuqFjaCBNYWksIFRHLiBC4buZLCBIYWkgQsOgIFRyxrBuZywgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1715678901234!5m2!1svi!2s" 
-              width="100%" 
-              height="100%" 
-              style={{ border: 0 }} 
-              allowFullScreen={true} 
-              loading="lazy" 
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.7335661245!2d105.84752627596851!3d21.003314488651846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac73f3099993%3A0x609565f375f0a203!2zNDU5IELhuqFjaCBNYWksIFRHLiBC4buZLCBIYWkgQsOgIFRyxrBuZywgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1715678901234!5m2!1svi!2s"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen={true}
+              loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               title="Địa chỉ Bánh Giò Đức Lâm"
             ></iframe>

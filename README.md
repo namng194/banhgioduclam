@@ -18,7 +18,7 @@ Website chuyên nghiệp cho quán bánh giò truyền thống tại Hà Nội, 
 - **React 18** - UI library
 - **TypeScript** - Type safety
 - **Vite** - Build tool & dev server
-- **Tailwind CSS** - Utility-first CSS framework  
+- **Tailwind CSS** - Utility-first CSS framework
 - **shadcn/ui** - High-quality UI components
 - **Framer Motion** - Animation library
 - **TanStack Query** - Data fetching & caching
@@ -43,7 +43,7 @@ Website chuyên nghiệp cho quán bánh giò truyền thống tại Hà Nội, 
 ## 📦 Installation
 
 ### Prerequisites
-- Node.js 18+ 
+- Node.js 18+
 - PostgreSQL database
 - npm hoặc yarn
 
@@ -134,7 +134,7 @@ git push -u origin main
    - **Build Command:** `npm run build`
    - **Output Directory:** `dist/public`
    - **Install Command:** `npm install`
-   
+
 5. Thêm Environment Variables:
    ```
    DATABASE_URL=<your-postgres-connection-string>
@@ -236,7 +236,7 @@ FAQs được tự động seed trong `server/routes.ts`. Bạn có thể:
 2. Hoặc dùng Drizzle Studio để thêm trực tiếp
 
 ### Cải thiện Chatbot
-Logic chatbot ở `server/storage.ts` method `getAnswerForQuestion()`. 
+Logic chatbot ở `server/storage.ts` method `getAnswerForQuestion()`.
 Bạn có thể:
 - Thêm keywords mới
 - Cải thiện matching algorithm
@@ -254,7 +254,7 @@ Bạn có thể:
 ## 📱 Features Roadmap
 
 - [ ] Admin panel để quản lý FAQs
-- [ ] Online ordering system  
+- [ ] Online ordering system
 - [ ] Payment integration
 - [ ] Email notifications
 - [ ] Analytics dashboard

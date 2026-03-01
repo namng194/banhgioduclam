@@ -94,16 +94,16 @@ git push -u origin main
 
 3. **Add Environment Variables**
    Click "Environment Variables" và thêm:
-   
+
    ```env
    # Required
    DATABASE_URL=postgresql://user:pass@host/db
    NODE_ENV=production
-   
+
    # Optional
    SESSION_SECRET=random-string-here-change-me
    ```
-   
+
    **Important:** Paste DATABASE_URL từ bước 1!
 
 4. **Deploy**
@@ -195,7 +195,7 @@ INSERT INTO faqs (question, answer) VALUES
 1. **Check Homepage:** `https://your-project.vercel.app`
 2. **Test Chatbot:** Click icon ở góc phải, gửi tin nhắn
 3. **Check FAQs:** Scroll xuống phần "Câu Hỏi Thường Gặp"
-4. **Test API:** 
+4. **Test API:**
    ```bash
    curl https://your-project.vercel.app/api/faqs
    ```
@@ -321,7 +321,7 @@ useEffect(() => {
 
 ## Support
 
-Gặp vấn đề? 
+Gặp vấn đề?
 
 1. Check [Vercel Docs](https://vercel.com/docs)
 2. Check [Drizzle Docs](https://orm.drizzle.team)
