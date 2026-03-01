@@ -11,8 +11,11 @@ interface Message {
 
 const QUICK_REPLIES = [
   "Địa chỉ quán ở đâu?",
-  "Số điện thoại?",
-  "Chất lượng bánh?",
+  "Giờ mở cửa?",
+  "Menu có gì?",
+  "Giá bao nhiêu?",
+  "Làm sao đặt bánh?",
+  "Có giao hàng không?",
 ];
 
 export function ChatWidget() {

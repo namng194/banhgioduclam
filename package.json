@@ -1,14 +1,18 @@
 {
-  "name": "rest-express",
+  "name": "banh-gio-duc-lam",
   "version": "1.0.0",
+  "description": "Website for Bánh Giò Đức Lâm - Traditional Vietnamese rice cake restaurant in Hanoi",
   "type": "module",
   "license": "MIT",
+  "keywords": ["restaurant", "vietnamese-food", "banh-gio", "hanoi", "chatbot"],
   "scripts": {
     "dev": "NODE_ENV=development tsx server/index.ts",
     "build": "tsx script/build.ts",
     "start": "NODE_ENV=production node dist/index.cjs",
     "check": "tsc",
-    "db:push": "drizzle-kit push"
+    "db:generate": "drizzle-kit generate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

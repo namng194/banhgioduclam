@@ -94,7 +94,7 @@ export default function Home() {
             <div className="relative aspect-square md:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl shadow-primary/10 border-8 border-white">
               {/* landing page hero delicious steamed vietnamese food in banana leaves */}
               <img 
-                src="https://pixabay.com/get/gefe51b4c2faff26120b689ad8da2ff3b4c851d3be39b60845617c19ef5d1d06246065749670b53939505376fd8c19906c4dff77c2461e7569718c7eea352f7f1_1280.jpg" 
+                src="https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/616838197_122278854656190415_5330095285622941852_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=7b2446&_nc_ohc=ff9LLY7OJ6sQ7kNvwGLD1SC&_nc_oc=AdnIA3qjwDhTTGjpiJx9OwKzhxkdXLpbUjEmbuEnwOUnjSMG4XnrtZkpebmn9O9f3JrkLT-ub0gkPS_N44w34Q-y&_nc_zt=23&_nc_ht=scontent.fhan2-4.fna&_nc_gid=ZKhP-og8awKsX5c4HAnXNQ&_nc_ss=8&oh=00_AfvYzac1xI0O79z27z2OrluEv4laF1-UGSSoNovkBHZWjA&oe=69A9EC7E" 
                 alt="Bánh Giò Đức Lâm" 
                 className="object-cover w-full h-full transform hover:scale-105 transition-transform duration-700"
               />
