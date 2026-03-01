@@ -22,7 +22,7 @@ case $choice in
     echo "4. Copy 'Connection string' (Pooled connection)"
     echo ""
     read -p "Paste connection string: " DB_URL
-    
+
     if [ ! -z "$DB_URL" ]; then
       cat > .env << EOF
 DATABASE_URL=$DB_URL
@@ -39,7 +39,7 @@ EOF
       echo "✅ Done! Run: npm run dev"
     fi
     ;;
-    
+
   2)
     echo ""
     echo "📌 SUPABASE SETUP (1 phút)"
@@ -51,7 +51,7 @@ EOF
     echo "5. Settings → Database → Connection string → URI"
     echo ""
     read -p "Paste connection string: " DB_URL
-    
+
     if [ ! -z "$DB_URL" ]; then
       cat > .env << EOF
 DATABASE_URL=$DB_URL
@@ -68,7 +68,7 @@ EOF
       echo "✅ Done! Run: npm run dev"
     fi
     ;;
-    
+
   3)
     echo ""
     echo "📌 LOCAL POSTGRESQL"
@@ -87,7 +87,7 @@ EOF
     echo "Then update .env with:"
     echo "  DATABASE_URL=postgresql://myuser:mypassword@localhost:5432/banhgioduclam"
     ;;
-    
+
   *)
     echo "Invalid choice"
     ;;

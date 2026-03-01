@@ -3,14 +3,29 @@ import type { Server } from "http";
 import { storage } from "./storage";
 import { api } from "@shared/routes";
 import { z } from "zod";
+import { testConnection } from "./db";
 
 export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
   app.get(api.faqs.list.path, async (req, res) => {
-    const allFaqs = await storage.getFaqs();
-    res.json(allFaqs);
+    try {
+      const allFaqs = await storage.getFaqs();
+      res.json(allFaqs);
+    } catch (err) {
+      console.error('❌ Error fetching FAQs:', err);
+      const isTimeoutError = err instanceof Error &&
+        (err.message.includes('ETIMEDOUT') || err.message.includes('ENETUNREACH') || err.message.includes('timeout'));
+
+      if (isTimeoutError) {
+        return res.status(503).json({
+          message: "Database connection timeout. The database might be waking up from sleep mode. Please try again in a moment."
+        });
+      }
+
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
   });
 
   app.post(api.chat.send.path, async (req, res) => {
@@ -25,12 +40,39 @@ export async function registerRoutes(
           field: err.errors[0].path.join('.'),
         });
       }
-      throw err;
+
+      console.error('❌ Error in chat endpoint:', err);
+      const isTimeoutError = err instanceof Error &&
+        (err.message.includes('ETIMEDOUT') || err.message.includes('ENETUNREACH') || err.message.includes('timeout'));
+
+      if (isTimeoutError) {
+        return res.status(503).json({
+          message: "Xin lỗi anh/chị. Hệ thống đang khởi động lại. Vui lòng thử lại sau vài giây. Hoặc gọi trực tiếp: 0984 989 795 để được hỗ trợ ngay ạ!"
+        });
+      }
+
+      return res.status(500).json({ message: "Internal Server Error" });
     }
   });
 
-  // Seed DB with some FAQs
-  seedDatabase().catch(console.error);
+  // Test database connection on startup
+  console.log('🔄 Testing database connection...');
+  const isConnected = await testConnection(3);
+
+  if (!isConnected) {
+    console.error('⚠️  Warning: Database connection could not be established after multiple retries.');
+    console.error('   The server will start but database operations may fail.');
+    console.error('   This is common with Neon databases that are suspended.');
+    console.error('   The database should wake up on the first request.');
+  }
+
+  // Seed DB with some FAQs (with retry)
+  if (isConnected) {
+    seedDatabase().catch((err) => {
+      console.error('⚠️  Database seeding failed:', err);
+      console.error('   Will retry on next request...');
+    });
+  }
 
   return httpServer;
 }
@@ -84,7 +126,7 @@ async function seedDatabase() {
     for (const faq of faqsToSeed) {
       await storage.createFaq(faq);
     }
-    
+
     console.log(`✅ Seeded ${faqsToSeed.length} FAQs to database`);
   }
 }

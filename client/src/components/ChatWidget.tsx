@@ -28,7 +28,7 @@ export function ChatWidget() {
       content: "Chào bạn, mình có thể giúp gì cho bạn?",
     },
   ]);
-  
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatMutation = useChat();
 
@@ -104,7 +104,7 @@ export function ChatWidget() {
                   <p className="text-primary-foreground/80 text-xs">Luôn sẵn sàng hỗ trợ</p>
                 </div>
               </div>
-              <button 
+              <button
                 onClick={() => setIsOpen(false)}
                 className="text-primary-foreground/80 hover:text-white hover:bg-white/10 p-2 rounded-full transition-colors"
               >
@@ -132,7 +132,7 @@ export function ChatWidget() {
                   </div>
                 </motion.div>
               ))}
-              
+
               {chatMutation.isPending && (
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -149,7 +149,7 @@ export function ChatWidget() {
 
               {/* Suggestions after each message */}
               {!chatMutation.isPending && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   className="flex flex-wrap gap-2 pt-2"
@@ -165,7 +165,7 @@ export function ChatWidget() {
                   ))}
                 </motion.div>
               )}
-              
+
               <div ref={messagesEndRef} />
             </div>
 
@@ -204,12 +204,23 @@ export function ChatWidget() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-xl shadow-primary/30 flex items-center justify-center relative overflow-hidden group"
+        /* 1. Bỏ overflow-hidden ở đây */
+        className="w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-xl shadow-primary/30 flex items-center justify-center relative group"
       >
-        <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out rounded-full" />
-        {isOpen ? <X className="w-6 h-6 relative z-10" /> : <MessageCircle className="w-6 h-6 relative z-10" />}
+        {/* 2. Thêm overflow-hidden vào một div bọc riêng cho hiệu ứng background */}
+        <div className="absolute inset-0 rounded-full overflow-hidden">
+          <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+        </div>
+
+        {isOpen ? (
+          <X className="w-6 h-6 relative z-10" />
+        ) : (
+          <MessageCircle className="w-6 h-6 relative z-10" />
+        )}
+
         {!isOpen && (
-          <span className="absolute -top-1 -right-1 w-4 h-4 bg-accent border-2 border-background rounded-full"></span>
+          /* 3. Bây giờ cái chấm này có thể thoải mái "vượt rào" mà không bị cắt */
+          <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-accent border-2 border-background rounded-full z-20"></span>
         )}
       </motion.button>
     </div>
