@@ -143,23 +143,28 @@ export function ChatWidget() {
                   </div>
                 </motion.div>
               )}
+
+              {/* Suggestions after each message */}
+              {!chatMutation.isPending && (
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="flex flex-wrap gap-2 pt-2"
+                >
+                  {QUICK_REPLIES.map((reply) => (
+                    <button
+                      key={reply}
+                      onClick={() => handleSend(reply)}
+                      className="text-[10px] sm:text-xs px-2.5 py-1 bg-white hover:bg-primary hover:text-white border border-primary/20 text-primary rounded-full transition-all duration-200 shadow-sm"
+                    >
+                      {reply}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+              
               <div ref={messagesEndRef} />
             </div>
-
-            {/* Quick Replies */}
-            {messages.length < 3 && !chatMutation.isPending && (
-              <div className="px-4 pb-2 flex flex-wrap gap-2 bg-background/50">
-                {QUICK_REPLIES.map((reply) => (
-                  <button
-                    key={reply}
-                    onClick={() => handleSend(reply)}
-                    className="text-xs px-3 py-1.5 bg-accent/10 text-accent hover:bg-accent hover:text-white border border-accent/20 rounded-full transition-all duration-200"
-                  >
-                    {reply}
-                  </button>
-                ))}
-              </div>
-            )}
 
             {/* Input */}
             <div className="p-3 bg-white border-t border-border">

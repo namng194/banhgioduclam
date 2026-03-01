@@ -1,43 +1,43 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --font-sans: 'Plus Jakarta Sans', sans-serif;
-  --font-display: 'Playfair Display', serif;
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Libre Baskerville', serif;
 
-  /* Warm appetizing colors - Light Mode */
-  --background: 45 100% 98%; /* Warm cream */
-  --foreground: 20 20% 15%; /* Dark brown/black */
+  /* Leaf Green Tone - Light Mode */
+  --background: 80 30% 98%; /* Very light greenish cream */
+  --foreground: 120 20% 10%; /* Very dark green */
   
   --card: 0 0% 100%;
-  --card-foreground: 20 20% 15%;
+  --card-foreground: 120 20% 10%;
   
   --popover: 0 0% 100%;
-  --popover-foreground: 20 20% 15%;
+  --popover-foreground: 120 20% 10%;
   
-  --primary: 15 86% 43%; /* Rich Orange-Red */
+  --primary: 142 45% 25%; /* Deep Leaf Green */
   --primary-foreground: 0 0% 100%;
   
-  --secondary: 38 92% 50%; /* Amber/Yellow */
-  --secondary-foreground: 20 20% 15%;
+  --secondary: 75 50% 45%; /* Lighter Leaf Green */
+  --secondary-foreground: 0 0% 100%;
   
-  --muted: 40 30% 92%;
-  --muted-foreground: 25 15% 40%;
+  --muted: 80 20% 94%;
+  --muted-foreground: 120 10% 40%;
   
-  --accent: 142 60% 35%; /* Banana leaf green */
-  --accent-foreground: 0 0% 100%;
+  --accent: 38 92% 50%; /* Amber for contrast (yoke color) */
+  --accent-foreground: 20 20% 15%;
   
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
 
-  --border: 30 20% 90%;
-  --input: 30 20% 90%;
-  --ring: 15 86% 43%;
+  --border: 80 20% 90%;
+  --input: 80 20% 90%;
+  --ring: 142 45% 25%;
 
-  --radius: 1rem;
+  --radius: 0.75rem;
 }
 
 @layer base {
