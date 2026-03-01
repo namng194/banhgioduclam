@@ -4,39 +4,48 @@ import * as schema from "@shared/schema";
 
 const { Pool } = pg;
 
+// Allow server to run without DATABASE_URL (fallback mode)
 if (!process.env.DATABASE_URL) {
-  throw new Error(
-    "DATABASE_URL must be set. Did you forget to provision a database?",
-  );
+  console.warn('⚠️  DATABASE_URL not set. Server will run in FALLBACK MODE.');
+  console.warn('   Chatbot and FAQs will use predefined data.');
 }
 
-export const pool = new Pool({
+// Create pool only if DATABASE_URL exists
+export const pool = process.env.DATABASE_URL ? new Pool({
   connectionString: process.env.DATABASE_URL,
-  connectionTimeoutMillis: 60000, // 60 seconds - Neon databases can take time to wake up from suspend
-  idleTimeoutMillis: 30000,
-  max: 10, // Maximum 10 connections in pool
+  // Optimized for Vercel serverless
+  connectionTimeoutMillis: 3000, // 3 seconds for serverless
+  idleTimeoutMillis: 0, // Close idle connections immediately
+  max: 1, // Single connection for serverless (no pooling needed)
   // Add retry logic for connection errors
   ...(
     process.env.DATABASE_URL.includes('neon.tech') ? {
       // Neon-specific settings
-      keepAlive: true,
-      keepAliveInitialDelayMillis: 10000,
+      keepAlive: false, // Disable for serverless
     } : {}
   )
-});
+}) : null as any;
 
-pool.on('error', (err) => {
-  console.error('❌ Unexpected database pool error:', err);
-});
+// Only set up event handlers if pool exists
+if (pool) {
+  pool.on('error', (err) => {
+    console.error('❌ Unexpected database pool error:', err);
+  });
 
-pool.on('connect', () => {
-  console.log('✅ Database pool connection established');
-});
+  pool.on('connect', () => {
+    console.log('✅ Database pool connection established');
+  });
+}
 
-export const db = drizzle(pool, { schema });
+export const db = pool ? drizzle(pool, { schema }) : null as any;
 
 // Helper function to test database connection
 export async function testConnection(retries = 3): Promise<boolean> {
+  if (!pool) {
+    console.warn('⚠️  No database pool available (DATABASE_URL not set)');
+    return false;
+  }
+
   for (let i = 0; i < retries; i++) {
     try {
       const client = await pool.connect();

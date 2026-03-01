@@ -83,6 +83,11 @@ export function getChatbotAnswer(questionQuery: string): string {
 
 export class DatabaseStorage implements IStorage {
   async getFaqs(): Promise<Faq[]> {
+    // If no database, return empty array (will use fallback in routes)
+    if (!db) {
+      throw new Error('Database not available');
+    }
+
     return await withRetry(
       () => db.select().from(faqs),
       2,
@@ -90,35 +95,23 @@ export class DatabaseStorage implements IStorage {
     );
   }
 
-  // Helper to check database availability with timeout
-  private async checkDatabaseWithTimeout(timeoutMs: number = 1500): Promise<boolean> {
-    try {
-      const timeoutPromise = new Promise<never>((_, reject) => {
-        setTimeout(() => reject(new Error('Database check timeout')), timeoutMs);
-      });
-
-      const dbCheckPromise = db.select().from(faqs).limit(1);
-
-      await Promise.race([dbCheckPromise, timeoutPromise]);
-      return true;
-    } catch (err) {
-      return false;
-    }
-  }
-
   async getAnswerForQuestion(questionQuery: string): Promise<string> {
-    // Quick check if database is available (1.5s timeout)
-    const isDbAvailable = await this.checkDatabaseWithTimeout(1500);
-
-    if (!isDbAvailable) {
-      console.warn('⚠️  Database unavailable for FAQ retrieval, using fallback logic');
+    // ALWAYS use the standalone chatbot logic for instant response
+    // No database dependency - chatbot works 100% of the time
+    try {
+      return getChatbotAnswer(questionQuery);
+    } catch (err) {
+      // If somehow getChatbotAnswer fails, return a generic helpful message
+      console.error('❌ Chatbot logic failed (should never happen):', err);
+      return "Dạ em xin lỗi! Vui lòng gọi trực tiếp: 0984 989 795 để được hỗ trợ ngay ạ!";
     }
-
-    // Use the standalone chatbot logic (works without database)
-    return getChatbotAnswer(questionQuery);
   }
 
   async createFaq(faq: InsertFaq): Promise<Faq> {
+    if (!db) {
+      throw new Error('Database not available');
+    }
+
     return await withRetry(
       async () => {
         const [newFaq] = await db.insert(faqs).values(faq).returning();

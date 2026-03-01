@@ -108,7 +108,7 @@ export default function Home() {
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
 
               {/* Floating badge */}
-              <div className="absolute bottom-6 left-6 right-6 glass-panel rounded-xl p-4 flex items-center gap-4 text-white">
+              {/* <div className="absolute bottom-6 left-6 right-6 glass-panel rounded-xl p-4 flex items-center gap-4 text-white">
                 <div className="bg-primary p-3 rounded-full">
                   <ChefHat className="w-6 h-6" />
                 </div>
@@ -116,7 +116,7 @@ export default function Home() {
                   <p className="font-bold text-lg font-display">Cao Cấp & Thượng Hạng</p>
                   <p className="text-sm opacity-90">Hương vị khó quên</p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </motion.div>
 
